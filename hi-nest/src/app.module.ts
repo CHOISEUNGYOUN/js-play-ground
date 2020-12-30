@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import { Module } from '@nestjs/common';
 import { MoviesController } from './movies/movies.controller';
 import { MoviesService } from './movies/movies.service';
@@ -7,4 +8,4 @@ import { MoviesService } from './movies/movies.service';
   controllers: [MoviesController],
   providers: [MoviesService],
 })
-export class AppModule {}
+export class AppModule { }
