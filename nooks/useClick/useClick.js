@@ -1,6 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
-
-const useClick = (onClick) => {
+export const useClick = (onClick) => {
   const element = useRef();
   useEffect(() => {
     if (typeof onClick !== "function") {
@@ -17,15 +15,3 @@ const useClick = (onClick) => {
   }, []);
   return element;
 };
-
-function App() {
-  const sayHello = () => console.log("say hello");
-  const title = useClick(sayHello);
-  return (
-    <div className="App">
-      <h1 ref={title}>hi</h1>
-    </div>
-  );
-}
-
-export default App;
