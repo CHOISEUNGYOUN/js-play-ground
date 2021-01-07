@@ -1,29 +1,21 @@
 import React, { useEffect, useRef, useState } from "react";
 
-const useClick = (onClick) => {
-  const element = useRef();
-  useEffect(() => {
-    if (typeof onClick !== "function") {
-      return;
-    }
-    if (element.current) {
-      element.current.addEventListener("click", onClick);
-    }
-    return () => {
-      if (element.current) {
-        element.current.removeEventListener("click", onClick);
-      }
-    };
-  }, []);
-  return element;
+const usePreventLeave = () => {
+  const listener = (event) => {
+    event.preventDefault();
+    event.returnValue = "";
+  };
+  const enablePrevent = () => window.addEventListener("beforeunload", listener);
+  const disablePrevent = () => window.removeEventListener("beforeunload", listener);
+  return { enablePrevent, disablePrevent };
 };
 
 function App() {
-  const sayHello = () => console.log("say hello");
-  const title = useClick(sayHello);
+  const { enablePrevent, disablePrevent } = usePreventLeave();
   return (
     <div className="App">
-      <h1 ref={title}>hi</h1>
+      <button onClick={enablePrevent}>protect</button>
+      <button onClick={disablePrevent}>unprotect</button>
     </div>
   );
 }
